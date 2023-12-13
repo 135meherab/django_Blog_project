@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load  crispy_forms_tags %}
+
+{% block title %}
+Change User Data
+{% endblock title %}
+
+{% block content %}
+<form style="width:50%; margin:auto; padding: 30px" method="POST" novalidate>
+    {%if messages%}
+        {%for msg in messages%}
+        <p class="bg-success p-3">{{msg}}</p>
+        {%endfor%}
+    {%endif%}
+    {% csrf_token %}
+    <!--{{form|crispy}}-->
+    {% if form.non_field_errors%}
+        {%for error in form.non_field_errors%}
+            <p class="bg-danger text-white p-4">{{error}}</p>
+        {% endfor %%}
+    {%endif%}
+
+    <h1>Update your Information</h1>
+    {%for form_item in form%}
+    {{form_item.label_tag}}
+    {{form_item}}
+    {{form_item.errors|striptags}}
+{%endfor%}
+<br>
+<button class="btn btn-primary w-100" type="submit">Update Information</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile page
+{% endblock title %}
+
+{% block content %}
+<div class="text-center container">
+    <h1>WellCome {{user.first_name}} {{user.last_name}}</h1>
+    <a href="{% url 'change_password'%}" class="btn btn-danger" href="">Change password</a>
+    <a href="{% url 'change_data'%}" class="btn btn-warning" href="">Change User Info</a>
+    <br>
+    <hr>
+</div>
+<div>
+    {% for item in data%}
+        <div class="card m-3">
+            <div class="card-body">
+            <h5 class="card-title">{{item.title}}</h5>
+            <p class="card-text">{{item.decription}}</p>
+            <p class="card-text"><small class="text-body-secondary">By {{item.author}}</small></p>
+            <p>category:
+                {%for ct in item.category.all%}
+                    <button class="btn btn-primary btn-sm" disabled>{{ct}}</button>
+                {%endfor%}
+            </p>
+            <a href="{% url 'edit' item.id%}" class="btn btn-warning" href="">Edit</a>
+            <a href="{% url 'delete' item.id%}" class="btn btn-danger" href="">Delete</a>
+            </div>
+        </div>
+    {%endfor%}
+</div>
+{% endblock content %}
